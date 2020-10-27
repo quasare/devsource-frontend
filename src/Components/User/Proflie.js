@@ -3,7 +3,7 @@ import React from 'react'
 export default function Proflie() {
     return (
         <div>
-            Proflie
+            <p>Profile</p>
         </div>
     )
 }

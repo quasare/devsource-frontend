@@ -3,7 +3,7 @@ import React from 'react'
 export default function LanguageList() {
     return (
         <div>
-            Language List
+            <p>Language List</p>
         </div>
     )
 }

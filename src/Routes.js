@@ -2,7 +2,8 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Home from './Home'
 import LanugageList from './Components/Language/LanguageList';
-import Profile from './Components/User/Proflie'
+import Profile from './Components/User/Proflie';
+import LanguageDetail from './Components/Language/LanguageDetail'
 
 export default function Routes() {
     return (
@@ -10,10 +11,13 @@ export default function Routes() {
             <Route exact path='/'>
                 <Home/>
             </Route>
-            <Route exact path='/Languages'>
+            <Route exact path='/languages'>
                 <LanugageList/>
             </Route>
-            <Route exact path='/Proflie'>
+            <Route exact path='/languages/:name'>
+                <LanguageDetail/>
+            </Route>
+            <Route exact path='/proflie'>
                 <Profile />
             </Route>
         </Switch>

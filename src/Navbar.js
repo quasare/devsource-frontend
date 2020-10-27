@@ -8,18 +8,18 @@ const Nav = styled.nav`
   border-bottom: 2px solid #f1f1f1;
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `
 
 export default function Navbar() {
     return (
-        <nav>
+        <Nav>
             <div>Navbar</div>
             <ul>
             <li><NavLink to="/">Home</NavLink></li>
-            <li> <NavLink to="/Proflie">Proflie</NavLink></li>
-            <li> <NavLink to="/Languages">Language</NavLink></li>
+            <li> <NavLink to="/proflie">Proflie</NavLink></li>
+            <li> <NavLink to="/languages">Languages</NavLink></li>
             </ul>
-        </nav>
+        </Nav>
     )
 }
