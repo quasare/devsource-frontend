@@ -12,9 +12,9 @@ import { store, persistedStore} from "./store"
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistedStore}>
+    
         <App />
-    </PersistGate>
+    
   </Provider>,
   document.getElementById('root')
 );
@@ -23,3 +23,5 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+// <PersistGate loading={null} persistor={persistedStore}>

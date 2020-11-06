@@ -2,7 +2,9 @@ import React, {useEffect} from 'react'
 import styled from "styled-components";
 import {useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import {getLanguage} from '../../Actions/languages'
+import {getLanguage} from '../../Actions/languages';
+import ResourceList from '../Resource/ResourceList';
+import CommentList from '../Comments/CommentList'
 
 
 const Card = styled.div`
@@ -25,7 +27,8 @@ export default function Language() {
       if (missing) {
         dispatch(getLanguage(name));
       }
-    }, [missing, dispatch]);
+      dispatch(getLanguage(name));
+    }, [missing,name, dispatch]);
 
     if (missing) return <h1 className="mt-5">loading...</h1>;
 
@@ -37,6 +40,8 @@ export default function Language() {
                     <h1>{lang.lang_name}</h1>
                     <p>{lang.docs}</p>
                 </Card>
+                <ResourceList name={name} />
+                <CommentList name={name} />
             </Container>
         </div>
     )

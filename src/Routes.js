@@ -3,7 +3,8 @@ import {Switch, Route} from 'react-router-dom';
 import Home from './Home'
 import LanugageList from './Components/Language/LanguageList';
 import Profile from './Components/User/Proflie';
-import Language from './Components/Language/Language'
+import Language from './Components/Language/Language';
+import Resource from './Components/Resource/Resource'
 
 export default function Routes() {
     return (
@@ -16,6 +17,9 @@ export default function Routes() {
             </Route>
             <Route exact path='/languages/:name'>
                 <Language/>
+            </Route>
+            <Route exact path='/languages/:name/resource/:id'>
+                <Resource />
             </Route>
             <Route exact path='/proflie'>
                 <Profile />

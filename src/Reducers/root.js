@@ -3,10 +3,17 @@
  */
 
 import { combineReducers } from "redux";
-import {language, languages} from './languages'
+import {language, languages} from './languages';
+import {resources, resource} from './resources';
+import {externalApi} from './api';
+import {comments} from './comments'
 
 
 export default combineReducers({
+  externalApi,
   language,
-  languages
+  languages,
+  resources,
+  resource, 
+  comments
 });
