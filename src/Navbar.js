@@ -11,7 +11,7 @@ const Nav = styled.nav`
   /* justify-content: space-between; */
 `
 
-export default function Navbar() {
+export default function Navbar({logout}) {
     return (
         <Nav>
             <div>Navbar</div>
@@ -19,6 +19,7 @@ export default function Navbar() {
             <li><NavLink to="/">Home</NavLink></li>
             <li> <NavLink to="/proflie">Proflie</NavLink></li>
             <li> <NavLink to="/languages">Languages</NavLink></li>
+            <li ><NavLink  to="/" onClick={logout}> Log out</NavLink> </li>
             </ul>
         </Nav>
     )

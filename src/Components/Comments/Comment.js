@@ -1,12 +1,22 @@
 import React, {useEffect} from 'react'
 import styled from "styled-components";
-import {useParams} from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
 
-export default function Comment() {
+
+export default function Comment({comment, deleteComment}) {
+    function handleDelete(evt) {
+        deleteComment(comment.id);
+      }
     return (
         <div>
-            Comment Detail
+            <h3>{comment.username}</h3>
+            <p>{deleteComment && (
+                <i
+                  className="far fa-trash-alt"
+                  onClick={handleDelete}
+                />
+              )}
+              
+            {comment.comment_text}</p>
         </div>
     )
 }

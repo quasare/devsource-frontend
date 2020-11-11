@@ -17,7 +17,7 @@ import { createStore, applyMiddleware } from "redux";
 const persistConfig = {
   key: "root",
   storage,
-  stateReconciler: autoMergeLevel2
+  whitelist: ['user']
 };
 
 const persistedReducer = persistReducer(persistConfig, root);

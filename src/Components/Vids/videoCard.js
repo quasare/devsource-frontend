@@ -6,10 +6,13 @@ const Card = styled.div`
   transition: 0.3s;
 `
 
-export default function videoCard() {
+export default function VideoCard({video}) {
+    const {id, snippet} = video
     return (
         <div>
-            
+        <iframe width="420" height="315"
+        src={`https://www.youtube.com/embed/${id.videoId}`}>
+        </iframe>
         </div>
     )
 }

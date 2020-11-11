@@ -1,4 +1,4 @@
-import { LOAD_RESOURCE, LOAD_RESOURCES } from "./types";
+import { ADD_RESOURCE, LOAD_RESOURCE, LOAD_RESOURCES, UPDATE_RESOURCE, DELETE_RESOURCE } from "./types";
 import axios from 'axios';
 
 
@@ -29,5 +29,56 @@ function gotResources(lang) {
   return { type: LOAD_RESOURCES, payload: lang };
 }
 
+function sendResourceToAPI(lang, resource_name, website, detail) {
+  return async function (dispatch) {
+    const response = await axios.post(`${BASE_URL}`, {
+      lang,
+      resource_name,
+      website, 
+      detail
+    });
+    return dispatch(addResource(response.data));
+  };
+}
 
-export {  getResources, getResource }
+function addResource(resource) {
+  return {
+    type: ADD_RESOURCE,
+    resource
+  };
+}
+
+
+ function updateResourceInAPI(id, resource_name, website, detail) {
+  return async function (dispatch) {
+    const response = await axios.patch(`${BASE_URL}/${id}`, {
+      id,
+      resource_name,
+      website, 
+      detail
+    });
+    return dispatch(updateResource(response.data));
+  };
+}
+
+function updateResource(post) {
+  return {
+    type: UPDATE_RESOURCE,
+    post,
+  };
+}
+
+function removeResourceFromAPI(id) {
+  return async function (dispatch) {
+    await axios.delete(`${BASE_URL}/${id}`);
+    return dispatch(removeResource(id));
+  };
+}
+
+function removeResource(postId) {
+  return {
+    type: DELETE_RESOURCE,
+    postId
+  };
+}
+export {  getResources, getResource, sendResourceToAPI, updateResourceInAPI, removeResourceFromAPI }

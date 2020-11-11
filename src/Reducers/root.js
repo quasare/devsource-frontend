@@ -6,7 +6,8 @@ import { combineReducers } from "redux";
 import {language, languages} from './languages';
 import {resources, resource} from './resources';
 import {externalApi} from './api';
-import {comments} from './comments'
+import {comments} from './comments';
+import {user} from './user'
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   languages,
   resources,
   resource, 
-  comments
+  comments,
+  user
 });

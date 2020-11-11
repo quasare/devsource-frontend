@@ -4,7 +4,10 @@ import Home from './Home'
 import LanugageList from './Components/Language/LanguageList';
 import Profile from './Components/User/Proflie';
 import Language from './Components/Language/Language';
-import Resource from './Components/Resource/Resource'
+import Resource from './Components/Resource/Resource';
+import NewResource from './Components/Resource/NewResource';
+import Login from './Login';
+import PrivateRoute from './PrivateRoute'
 
 export default function Routes() {
     return (
@@ -21,8 +24,14 @@ export default function Routes() {
             <Route exact path='/languages/:name/resource/:id'>
                 <Resource />
             </Route>
-            <Route exact path='/proflie'>
+            <Route exact path='/add-resource/:lang'>
+                <NewResource />
+            </Route>
+            <PrivateRoute exact path='/proflie'>
                 <Profile />
+            </PrivateRoute>
+            <Route exact path='/login'>
+                <Login />
             </Route>
         </Switch>
     )
