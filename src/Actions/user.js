@@ -1,4 +1,4 @@
-import { LOAD_USER, LOGIN_USER, LOGOUT_USER } from "./types";
+import { LOAD_USER, LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "./types";
 import axios from 'axios';
 
 
@@ -19,9 +19,10 @@ const loginUser = (user) => {
   return {type: LOGIN_USER, payload: user}
 }
 
-const getUser = (username) => {
+const getUser = (username, isAdmin=false) => {
   return async function (dispatch) {
     const res = await axios.get(`${BASE_URL}/users/${username}`);
+    res.data.isAdmin =isAdmin
     dispatch(gotUser(res.data));
   };
 }
@@ -34,4 +35,18 @@ const logout = () => {
     return {type: LOGOUT_USER }
 }
 
-export {getUser, LoginUser, logout}
+
+const RegisternUser = (user) => {
+  
+  return async (dispatch) => {
+    let res = await axios.post(`${BASE_URL}/users/register`, user)
+    dispatch(registeredUser(res.data))
+    
+  }
+  
+}
+const registeredUser = (user) => {
+  return {type: REGISTER_USER, payload: user}
+}
+
+export {getUser, LoginUser, logout, RegisternUser}

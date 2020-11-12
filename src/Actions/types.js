@@ -19,7 +19,7 @@ export const POST_COMMENT = "POST_COMMENT";
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const LOAD_USER = 'LOAD_USER';
-export const LOGIN_USER = "LOGIN_USER"
-export const LOGOUT_USER = "LOGOUT_USER"
-
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const REGISTER_USER = "REGSITER_USER";
 

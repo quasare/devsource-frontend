@@ -8,6 +8,7 @@ export default function Proflie() {
     const dispatch = useDispatch();
     let user = useSelector(st => st.user.user)
     let missing = !user
+    
     useEffect(function() {
         if (missing) {
           dispatch(getUser());

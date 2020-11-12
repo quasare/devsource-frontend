@@ -27,6 +27,7 @@ export default function Routes() {
             <Route exact path='/add-resource/:lang'>
                 <NewResource />
             </Route>
+            
             <PrivateRoute exact path='/proflie'>
                 <Profile />
             </PrivateRoute>

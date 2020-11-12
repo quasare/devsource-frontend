@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import Alert from './Alert';
-import {LoginUser} from './Actions/user'
+import {LoginUser, RegisternUser} from './Actions/user'
 
 function Login(){
 	const dispatch = useDispatch()
@@ -29,6 +29,9 @@ function Login(){
 		dispatch(LoginUser(data))
 	}
 
+	function register(data){
+		dispatch(RegisternUser(data))
+	}
 	function handleSubmit(evt){
 		evt.preventDefault();
 
@@ -44,16 +47,18 @@ function Login(){
 				last_name  : loginInfo.last_name || undefined,
 				email      : loginInfo.email || undefined
 			};
-			endpoint = 'users/register';
+			register(data)
+			history.push('/languages')
 		} else {
 			data = {
 				username : loginInfo.username,
 				password : loginInfo.password
 			};
-			endpoint = 'login';
+			setLogin(data)
+			history.push('/proflie')
 		}
 
-		setLogin(data)
+		
 		
 		
 		// console.log(token);
