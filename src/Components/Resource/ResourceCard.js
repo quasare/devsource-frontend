@@ -7,8 +7,7 @@ const Card = styled.div`
   transition: 0.3s;
 `
 
-const Container = styled.div`
-  padding: .2rem 33rem;`
+const Container = styled.div``
 
 export default function ResourceCard({resource}) {
     return (

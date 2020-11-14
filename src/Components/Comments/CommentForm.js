@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Option,
+  Button,
+} from '@bootstrap-styled/v4';
 
 /** Comment form
  *
@@ -34,7 +44,7 @@ function CommentForm({submitCommentForm, username='test1', post_id
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div className="form-group">
         <textarea onChange={handleChange}
                 id="commentform-text"
@@ -45,9 +55,9 @@ function CommentForm({submitCommentForm, username='test1', post_id
                 rows={3}
                 value={text} />
         </div>
-        <button className="btn btn-primary">Add</button>
+        <Button className="btn btn-primary">Add</Button>
 
-      </form>
+      </Form>
 
     </div>
   );

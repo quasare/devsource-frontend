@@ -11,6 +11,7 @@ import ResourceList from '../Resource/ResourceList';
 import CommentList from '../Comments/CommentList';
 import CommentForm from '../Comments/CommentForm';
 import VideoList from '../Vids/VideoList'
+import {Container} from '@bootstrap-styled/v4'
 
 
 const Card = styled.div`
@@ -18,8 +19,8 @@ const Card = styled.div`
   transition: 0.3s;
 `
 
-const Container = styled.div`
-  padding: .2rem 33rem;
+const StyledContainer = styled.div`
+ 
 
 `
 
@@ -31,7 +32,7 @@ export default function Language() {
     let missing = !lang
     let missingVideo = !video
     const history = useHistory();
-    console.log(video);
+
     useEffect(function() {
       if (missing) {
         dispatch(getLanguage(name));
@@ -60,10 +61,11 @@ export default function Language() {
   
     return (
         <div>
-            <Container>
+            <Container className='justify-content-center' >
                 <Card>
                     <h1>{lang.lang_name}</h1>
                     <p>{lang.docs}</p>
+                    <i class="far fa-heart"></i>
                     <Link to={`/add-resource/${name}`}>add resource</Link>
                 </Card>
                

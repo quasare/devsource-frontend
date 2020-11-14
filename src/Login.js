@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import Alert from './Alert';
 import {LoginUser, RegisternUser} from './Actions/user'
+import {Container} from '@bootstrap-styled/v4'
 
 function Login(){
 	const dispatch = useDispatch()
@@ -76,7 +77,7 @@ function Login(){
 	let loginActive = activeView === 'login';
 
 	const signupFields = (
-		<div>
+		<Container>
 			<div className="form-group">
 				<label> First name </label>{' '}
 				<input
@@ -105,13 +106,14 @@ function Login(){
 					onChange={handleChange}
 				/>{' '}
 			</div>{' '}
-		</div>
+		</Container>
 	);
 
 	return (
+		<Container>
 		<div className="Login">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-				<div className="d-flex justify-content-end">
+				<div className="d-flex ">
 					<div className="btn-group">
 						<button className={`btn btn-primary ${loginActive ? 'active' : ''} `} onClick={setLoginView}>
 							Login{' '}
@@ -145,7 +147,7 @@ function Login(){
 							</div>{' '}
 							{loginActive ? '' : signupFields}{' '}
 							{loginInfo.errors.length ? <Alert type="danger" messages={loginInfo.errors} /> : null}
-							<button type="submit" className="btn btn-primary float-right" onSubmit={handleSubmit}>
+							<button type="submit" className="btn btn-primary " onSubmit={handleSubmit}>
 								Submit{' '}
 							</button>{' '}
 						</form>{' '}
@@ -153,6 +155,7 @@ function Login(){
 				</div>{' '}
 			</div>{' '}
 		</div>
+		</Container>
 	);
 }
 

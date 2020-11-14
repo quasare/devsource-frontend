@@ -65,7 +65,8 @@ export default function Resource() {
     function deleteComment(commentId) {
       dispatch(removeCommentFromAPI(commentId));
     }
-  
+    
+    if (missing) return <h1 className="mt-5">loading...</h1>;
 
     return (
         <div>

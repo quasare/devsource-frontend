@@ -1,13 +1,21 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './Navbar'
+import Navbar from './Navigation'
 import Routes from './Routes'
 import {useSelector, useDispatch} from 'react-redux'
 import {getUser, logout} from './Actions/user'
 import { decode } from "jsonwebtoken";
+import BootstrapProvider from '@bootstrap-styled/provider';
+import Navigation from './Navigation';
+import {Container} from '@bootstrap-styled/v4'
 
-
+const theme = {
+  main: '2C2D30',
+  txt: '8F9EA4',
+  secondary: '8D8095',
+  bg: 'F2EFF3'
+};
 
 function App() {
 
@@ -28,11 +36,16 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div >
     <BrowserRouter>
-      <Navbar logout={hanldeLogOut}/>
+    <BootstrapProvider theme ={theme}>
+      <Container>
+      <Navigation logout={hanldeLogOut}/>
       <Routes/>
+      </Container>
+      </BootstrapProvider>
     </BrowserRouter>
+    
     </div>
   );
 }

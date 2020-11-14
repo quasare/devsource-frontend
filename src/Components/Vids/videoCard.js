@@ -13,6 +13,7 @@ export default function VideoCard({video}) {
         <iframe width="420" height="315"
         src={`https://www.youtube.com/embed/${id.videoId}`}>
         </iframe>
+        <i class="far fa-heart"></i>
         </div>
     )
 }
