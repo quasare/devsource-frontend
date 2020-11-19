@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react'
 import ResourceCard from './ResourceCard'
-import styled from "styled-components";
-import {useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import {getResources} from '../../Actions/resources'
 
@@ -21,10 +19,10 @@ export default function ResourceList({name}) {
 
       if (missing) return <h1 className="mt-5">loading...</h1>;
     return (
-        <div>
-        <ul>
+        <div className="text-center">
+        <h3>Reources</h3>
         {resources.map((r) => (<ResourceCard resource={r} />
-            ))}</ul>
+            ))}
         </div>
     )
 }

@@ -16,38 +16,32 @@ import {
   } from '@bootstrap-styled/v4';
 
 
-const StyledNav = styled.nav`
-  width: 100%;
-  height: 55px;
-  border-bottom: 2px solid #f1f1f1;
-  padding: 0 20px;
-  display: flex;
-  /* justify-content: space-between; */
-`
-
 const MainNavbar = styled(Navbar)`
-  background: ${props => props.theme.main};
+  background-color: ${props => props.theme.main};
   color: white;
+  box-shadow: 0px 3px 4px 1px rgba(143,158,164,0.34);
+`
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
 `
 
 export default function Navigation({logout}) {
   let user = useSelector(st => st.user.token)
 
-  const [text, setText] = useState();
-   let initialState = {
-        isOpen: false,
-      };
+ 
+  const [isOpen, setToggle] = useState(false);
+ 
       if(!user){
           return (
-            <MainNavbar toggleable="lg">
+      <MainNavbar toggleable="lg">
         <Container>
         <Collapse navbar isOpen={true} >
           <Nav navbar className="mr-auto">
             <NavItem>
-            <NavLink><Link to="/">Home</Link></NavLink>
+            <StyledNavLink><Link to="/">Home</Link></StyledNavLink>
             </NavItem>
             <NavItem>
-            <NavLink><Link to="/proflie">Log in / Sign Up</Link></NavLink>
+            <StyledNavLink><Link to="/login">Log in / Sign Up</Link></StyledNavLink>
             </NavItem>
               </Nav>
           </Collapse>
@@ -62,16 +56,16 @@ export default function Navigation({logout}) {
         <Collapse navbar isOpen={true} >
           <Nav navbar className="mr-auto">
             <NavItem>
-            <NavLink><Link to="/">Home</Link></NavLink>
+            <StyledNavLink><Link to="/">Home</Link></StyledNavLink>
             </NavItem>
             <NavItem>
-            <NavLink><Link to="/proflie">Proflie</Link></NavLink>
+            <StyledNavLink><Link to="/profile">Profile</Link></StyledNavLink>
             </NavItem>
             <NavItem>
-            <NavLink><Link to="/languages">Languages</Link></NavLink>
+            <StyledNavLink><Link to="/languages">Languages</Link></StyledNavLink>
             </NavItem>
             <NavItem>
-            <NavLink><Link  to="/" onClick={logout}> Log out</Link></NavLink>
+            <StyledNavLink><Link  to="/" onClick={logout}> Log out</Link></StyledNavLink>
             </NavItem>
               </Nav>
           </Collapse>

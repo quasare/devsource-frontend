@@ -28,9 +28,10 @@ export default function Routes() {
                 <NewResource />
             </Route>
             
-            <PrivateRoute exact path='/proflie'>
+            <PrivateRoute exact path='/profile'>
                 <Profile />
             </PrivateRoute>
+            
             <Route exact path='/login'>
                 <Login />
             </Route>

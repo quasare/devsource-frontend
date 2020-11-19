@@ -9,7 +9,6 @@ export default function Home() {
     const dispatch = useDispatch()
     
     let missing = !joke
-    let missingQuote = !quote
 
     useEffect(function() {
       if (missing) {
@@ -20,9 +19,9 @@ export default function Home() {
    
 
      
-    if (missing) return <h1 className="mt-5">loading...</h1>;
+    if (missing) return <h1 className=" text-center"><i class="fas fa-circle-notch fa-spin"></i></h1>;
     return (
-        <div>
+        <div className="text-center">
            <p>Devsource</p> 
            <JokeCard joke={joke} />
            <p>Site to help developers find resesources and tutorials</p>

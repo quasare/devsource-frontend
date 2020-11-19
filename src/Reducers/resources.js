@@ -1,4 +1,4 @@
-import { LOAD_RESOURCE, LOAD_RESOURCES } from "../Actions/types";
+import { LIKE_RESOURCE, LOAD_RESOURCE, LOAD_RESOURCES, UNLIKE_RESOURCE } from "../Actions/types";
 
 const INITIAL_STATE = {};
 
@@ -25,6 +25,15 @@ function resources(state = INITIAL_STATE, action) {
         ...state, ...action.payload
       };  
 
+    case LIKE_RESOURCE:
+      return {
+        ...state, ...action.payload
+      }  
+
+    case UNLIKE_RESOURCE:
+      return {
+        ...state
+      }  
     default:
       return state;
   }

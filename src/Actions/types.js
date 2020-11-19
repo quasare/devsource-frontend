@@ -2,8 +2,13 @@
 
 export const LOAD_LANGUAGE = "LOAD_LANGUAGE";
 export const LOAD_LANGUAGES = "LOAD_LANGUAGES";
-export const LOAD_RESOURCE = "LOAD_RESOURCE";
+export const LIKE_LANGUAGE = "LIKE_LANGUAGE";
+export const UNLIKE_LANGUAGE = "UNLIKE_LANGUAGE";
 
+
+export const LOAD_RESOURCE = "LOAD_RESOURCE";
+export const LIKE_RESOURCE = "LIKE_RESOURCE";
+export const UNLIKE_RESOURCE = "UNLIKE_RESOURCE";
 export const LOAD_RESOURCES = "LOAD_RESOURCES";
 export const ADD_RESOURCE = "ADD_RESOURCE";
 export const UPDATE_RESOURCE = 'UPDATE_RESOURCE';
@@ -13,6 +18,8 @@ export const LOAD_JOKE = "LOAD_RESOURCES";
 export const LOAD_QUOTE = "LOAD_RESOURCES";
 export const LOAD_VID = 'LOAD_VID';
 export const LOAD_GH = 'LOAD_GH';
+export const LIKE_VID = "LIKE_VID";
+export const UNLIKE_VID = 'UNLIKE_VID'
 
 export const LOAD_COMMENT = 'LOAD_COMMENT';
 export const POST_COMMENT = "POST_COMMENT";
@@ -22,4 +29,6 @@ export const LOAD_USER = 'LOAD_USER';
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const REGISTER_USER = "REGSITER_USER";
-
+export const LOAD_USER_VIDS = 'LOAD_USER_VIDS';
+export const LOAD_USER_LANGUAGES = 'LOAD_USER_LANGUAGES';
+export const LOAD_USER_RESOURCES = 'LOAD_USER_RESOURCES';

@@ -10,15 +10,11 @@ import CommentList from '../Comments/CommentList';
 import CommentForm from '../Comments/CommentForm';
 import ResourceForm from './ResourceForm';
 import ResourceDetail from './ResourceDetail';
+import {Container} from '@bootstrap-styled/v4'
 
-const Card = styled.div`
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-`
 
-const Container = styled.div`
-  padding: .2rem 33rem;
-`
+
+
 
 export default function Resource() {
     let {id} = useParams()
@@ -26,6 +22,8 @@ export default function Resource() {
     const dispatch = useDispatch();
     const history = useHistory()
     let resource = useSelector(st => st.resource.resource)
+    let username = useSelector(st => st.user.user)
+    
     let missing = !resource
 
 
@@ -66,18 +64,20 @@ export default function Resource() {
       dispatch(removeCommentFromAPI(commentId));
     }
     
-    if (missing) return <h1 className="mt-5">loading...</h1>;
+    
+
+    if (missing) return <h1 className="mt-5 text-center"><i class="fas fa-circle-notch fa-spin"></i></h1>;
 
     return (
-        <div>
+        <Container>
         {isEditing
           ? <ResourceForm resource={resource} save={edit} cancel={toggleEdit} />
           : <ResourceDetail resource={resource}
                           toggleEdit={toggleEdit}
                           deleteResource={deleteResource} />}
 
-            <CommentForm submitCommentForm={addComment} username='test1' post_id={id} />
+            <CommentForm submitCommentForm={addComment} username={username.username} post_id={id} />
             <CommentList name={id} deleteComment={deleteComment} />
-        </div>
+        </Container>
     )
 }

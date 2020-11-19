@@ -1,12 +1,13 @@
-import { ADD_RESOURCE, LOAD_RESOURCE, LOAD_RESOURCES, UPDATE_RESOURCE, DELETE_RESOURCE } from "./types";
+import { ADD_RESOURCE, LOAD_RESOURCE, LOAD_RESOURCES, UPDATE_RESOURCE, DELETE_RESOURCE, LIKE_RESOURCE, UNLIKE_RESOURCE } from "./types";
 import axios from 'axios';
 
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:3001/resources";
+const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
+
 
 const getResource = (id) => {
   return async function (dispatch) {
-    const res = await axios.get(`${BASE_URL}/detail/${id}`);
+    const res = await axios.get(`${BASE_URL}/resources/detail/${id}`);
     dispatch(gotResource(res.data));
   };
 }
@@ -19,7 +20,7 @@ function gotResource(resource) {
 const getResources = (lang) => {
   return async function (dispatch) {
    
-    const res = await axios.get(`${BASE_URL}/${lang}`);
+    const res = await axios.get(`${BASE_URL}/resources/${lang}`);
     dispatch(gotResources(res.data));
   };
 }
@@ -31,7 +32,7 @@ function gotResources(lang) {
 
 function sendResourceToAPI(lang, resource_name, website, detail) {
   return async function (dispatch) {
-    const response = await axios.post(`${BASE_URL}`, {
+    const response = await axios.post(`${BASE_URL}/resources`, {
       lang,
       resource_name,
       website, 
@@ -51,7 +52,7 @@ function addResource(resource) {
 
  function updateResourceInAPI(id, resource_name, website, detail) {
   return async function (dispatch) {
-    const response = await axios.patch(`${BASE_URL}/${id}`, {
+    const response = await axios.patch(`${BASE_URL}/resources/${id}`, {
       id,
       resource_name,
       website, 
@@ -70,7 +71,7 @@ function updateResource(post) {
 
 function removeResourceFromAPI(id) {
   return async function (dispatch) {
-    await axios.delete(`${BASE_URL}/${id}`);
+    await axios.delete(`${BASE_URL}/resources/${id}`);
     return dispatch(removeResource(id));
   };
 }
@@ -81,4 +82,27 @@ function removeResource(postId) {
     postId
   };
 }
+
+export function sendLikeResource(data) {
+  return async function(dispatch) {
+    let res = await axios.post(`${BASE_URL}/likes/resource`, data)
+    return dispatch(likeResource(res.data))
+  }
+}
+
+function likeResource(data){
+  return {type: LIKE_RESOURCE, data}
+}
+
+export function sendUnlikeResource(data) {
+  return async function(dispatch) {
+    let res = await axios.delete(`${BASE_URL}/likes/resource`, data )
+    return dispatch(unlikeResource())
+  }
+}
+
+function unlikeResource(id){
+  return {type: UNLIKE_RESOURCE}
+}
+
 export {  getResources, getResource, sendResourceToAPI, updateResourceInAPI, removeResourceFromAPI }

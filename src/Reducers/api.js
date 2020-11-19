@@ -1,4 +1,5 @@
-import {LOAD_QUOTE, LOAD_GH, LOAD_VID, LOAD_JOKE } from "../Actions/types";
+import P from "@bootstrap-styled/v4/lib/P";
+import {LOAD_QUOTE, LOAD_GH, LOAD_VID, LOAD_JOKE, LIKE_VID, UNLIKE_VID } from "../Actions/types";
 
 const INITIAL_STATE = {};
 
@@ -21,7 +22,15 @@ function externalApi(state = INITIAL_STATE, action) {
     case LOAD_VID:
         return {
         ...state, ...action.payload
-            };                
+            };
+    case LIKE_VID:
+        return {
+            ...state, ...action.payload
+        }                        
+    case UNLIKE_VID:
+        return {
+            ...state
+        }    
       default:
         return state;
     }

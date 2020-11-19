@@ -16,7 +16,7 @@ import {
  *
  */
 
-function CommentForm({submitCommentForm, username='test1', post_id
+function CommentForm({submitCommentForm, username, post_id
 }) {
   const [text, setText] = useState();
 
@@ -24,7 +24,6 @@ function CommentForm({submitCommentForm, username='test1', post_id
     evt.preventDefault();
 
     let isnum = /^\d+$/.test(post_id);
-    console.log(isnum);
 
     if(isnum){let data = {"username": username, "resource_id": post_id, "comment_text": text}
     submitCommentForm(data);

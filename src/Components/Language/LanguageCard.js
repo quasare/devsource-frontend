@@ -14,7 +14,7 @@ const Card = styled.div`
 export default function LanguageCard({language}) {
     return (
         <Container >
-        <Card >
+        <Card className="text-center">
             <h3>{language.lang_name}</h3>
             <p>{language.website}</p>
             <Link to={`/languages/${language.lang_name}`}> Detail  </Link>

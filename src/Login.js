@@ -37,7 +37,6 @@ function Login(){
 		evt.preventDefault();
 
 		let data;
-		let endpoint;
 
 		if (activeView === 'signup') {
 			// these fields aren't req'd---pass undefined, not empty string
@@ -50,20 +49,18 @@ function Login(){
 			};
 			register(data)
 			history.push('/languages')
+			
 		} else {
 			data = {
 				username : loginInfo.username,
 				password : loginInfo.password
 			};
 			setLogin(data)
-			history.push('/proflie')
+			history.push('/languages')
 		}
 
 		
 		
-		
-		// console.log(token);
-		// history.push('/');
 	}
 
 	function handleChange(e){
@@ -110,7 +107,7 @@ function Login(){
 	);
 
 	return (
-		<Container>
+		<Container className="text-center">
 		<div className="Login">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 				<div className="d-flex ">

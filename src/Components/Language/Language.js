@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import {getLanguage} from '../../Actions/languages';
+import {getLanguage, sendLikeLanguage, sendUnlikeLanguage} from '../../Actions/languages';
 import {postComment, removeCommentFromAPI} from '../../Actions/comments';
 import {Link} from 'react-router-dom';
 import {getVid} from '../../Actions/apis'
@@ -11,7 +10,11 @@ import ResourceList from '../Resource/ResourceList';
 import CommentList from '../Comments/CommentList';
 import CommentForm from '../Comments/CommentForm';
 import VideoList from '../Vids/VideoList'
-import {Container} from '@bootstrap-styled/v4'
+import {Container,  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter} from '@bootstrap-styled/v4'
 
 
 const Card = styled.div`
@@ -19,20 +22,20 @@ const Card = styled.div`
   transition: 0.3s;
 `
 
-const StyledContainer = styled.div`
- 
-
-`
 
 export default function Language() {
     let {name} = useParams()
     const dispatch = useDispatch();
     let lang = useSelector(st => st.language.lang)
     let video = useSelector(st => st.externalApi.vids)
+    let admin = useSelector(st => st.user.isAdmin)
+    let username = useSelector(st => st.user.user)
+    let [isModal, setModal] = useState(false)
+    
     let missing = !lang
     let missingVideo = !video
-    const history = useHistory();
-
+    let [like, setLike] = useState(false)
+    
     useEffect(function() {
       if (missing) {
         dispatch(getLanguage(name));
@@ -47,7 +50,7 @@ export default function Language() {
       dispatch(getVid(name))
     }, [missingVideo, name, dispatch])
 
-    if (missing) return <h1 className="mt-5">loading...</h1>;
+    if (missing) return <h1 className="mt-5 text-center"><i class="fas fa-circle-notch fa-spin"></i></h1>;
 
 
     function addComment(text) {
@@ -58,20 +61,64 @@ export default function Language() {
       dispatch(removeCommentFromAPI(commentId));
     }
   
+    function toggleLike(e) {
+      e.preventDefault()
+      setLike((like) => !like)
+    }
   
+    function sendLike() {
+      dispatch(sendLikeLanguage({
+        username: username.username,
+        language_name: name
+      }))
+    }
+
+    function sendUnlike() {
+        dispatch(sendUnlikeLanguage({
+          username: username.username,
+          language_name: name
+        }))
+    }
+
+    function handleLike (e){
+      sendLike(e) 
+      toggleLike(e)
+    }
+
+    function handleUnlike (e){
+      sendUnlike(e)
+      toggleLike(e)
+    }
+
+    const handleClose = () => setModal(() => !isModal)
+
     return (
         <div>
-            <Container className='justify-content-center' >
-                <Card>
-                    <h1>{lang.lang_name}</h1>
-                    <p>{lang.docs}</p>
-                    <i class="far fa-heart"></i>
-                    <Link to={`/add-resource/${name}`}>add resource</Link>
+            <Container >
+                <Card className="text-center">
+                    <h2>{lang.lang_name}  </h2>
+                    <p>{lang.docs}  
+                    {like ? <i class="fas fa-heart" onClick={handleUnlike}></i>: <i class="far fa-heart" onClick={handleLike}></i>} </p>
+                    
+                  {admin && <Link to={`/add-resource/${name}`}>add resource  
+                  
+                  </Link> }  
+                 
                 </Card>
-               
+                <div>
+                <Button color="primary" onClick={() => handleClose()}>Videos</Button>
+                <Modal isOpen={isModal} toggle={() => handleClose()}>
+                  <ModalHeader>Videos</ModalHeader>
+                  <VideoList video={video} />
+                  <ModalFooter>
+                    <Button color="secondary" onClick={() => handleClose()}>Cancel</Button>
+                  </ModalFooter>
+                </Modal>
+              </div>               
+              
                 <ResourceList name={name} />
-                <VideoList video={video} />
-                <CommentForm submitCommentForm={addComment} username='test1' post_id={lang.lang_name}/>
+               
+                <CommentForm submitCommentForm={addComment} username={username.username} post_id={lang.lang_name}/>
                 <CommentList name={name} deleteComment={deleteComment} />
             </Container>
         </div>

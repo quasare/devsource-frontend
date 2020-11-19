@@ -37,7 +37,7 @@ const postComment = (data) => {
 }  }
 
 function createComment(comment) {
-  return { type: POST_COMMENT,  comment };
+  return { type: POST_COMMENT, comment: comment };
 }
 
 function removeCommentFromAPI( commentId) {
@@ -50,7 +50,7 @@ function removeCommentFromAPI( commentId) {
 function removeComment(commentId) {
   return {
     type: REMOVE_COMMENT,
-    commentId
+    commentId: commentId
   };
 }
 

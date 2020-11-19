@@ -11,10 +11,10 @@ import Navigation from './Navigation';
 import {Container} from '@bootstrap-styled/v4'
 
 const theme = {
-  main: '2C2D30',
-  txt: '8F9EA4',
-  secondary: '8D8095',
-  bg: 'F2EFF3'
+  main: '#2C2D3080',
+  txt: '#8F9EA4',
+  secondary: '#8D8095',
+  bg: '#F2EFF3'
 };
 
 function App() {
@@ -24,8 +24,8 @@ function App() {
   useEffect(() => {
     
       try {
-        let { username, isAdmin } = decode(token);
-        dispatch(getUser(username, isAdmin));
+        let { username, is_admin } = decode(token);
+        dispatch(getUser(username, is_admin));
       } catch (err) {
         console.log(err);
       }
@@ -39,10 +39,10 @@ function App() {
     <div >
     <BrowserRouter>
     <BootstrapProvider theme ={theme}>
-      <Container>
+      
       <Navigation logout={hanldeLogOut}/>
       <Routes/>
-      </Container>
+      
       </BootstrapProvider>
     </BrowserRouter>
     
