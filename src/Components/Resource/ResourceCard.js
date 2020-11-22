@@ -24,6 +24,10 @@ const StyledNavLink = styled(Link)`
   }
   padding: 0rem 1rem;
 `
+const StyledLink = styled.a`
+text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
+`
 
 export default function ResourceCard({resource}) {
     return (
@@ -31,7 +35,7 @@ export default function ResourceCard({resource}) {
         <div>
         <StyledDiv className="text-center">
             <h3>{resource.resource_name}</h3>
-            <p> <a href={resource.website} > View Site </a> </p>
+            <p> <StyledLink href={resource.website} > View Site </StyledLink> </p>
             <p>{resource.detail}</p>
             <StyledNavLink to={`/languages/${resource.lang}/resource/${resource.id}`}> Detail  </StyledNavLink>
         </StyledDiv>

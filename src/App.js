@@ -26,7 +26,6 @@ function App() {
   useEffect(() => {
       try {
         let { username, is_admin } = decode(token);
-        console.log(username);
         dispatch(getUser(username, is_admin, token));
       } catch (err) {
         console.log(err);

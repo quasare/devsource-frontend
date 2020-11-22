@@ -1,5 +1,5 @@
 import { LOAD_USER, LOGIN_USER, LOGOUT_USER, REGISTER_USER, 
-  LOAD_USER_LANGUAGES, LOAD_USER_RESOURCES, LOAD_USER_VIDS } from "./types";
+  LOAD_USER_LANGUAGES, LOAD_USER_RESOURCES, LOAD_USER_VIDS, LOGIN_ERROR, REGISTER_ERROR } from "./types";
 import axios from 'axios';
 
 
@@ -9,15 +9,23 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 const LoginUser = (user) => {
   
   return async (dispatch) => {
-    let res = await axios.post(`${BASE_URL}/login`, user)
+
+    try {
+      let res = await axios.post(`${BASE_URL}/login`, user)
     dispatch(loginUser(res.data))
-    
+    } catch (e) {
+      dispatch(loginError(e.response.data.message))
+    }
+      
   }
   
 }
-
 const loginUser = (user) => {
   return {type: LOGIN_USER, payload: user}
+}
+
+const loginError = (msg) => {
+  return {type: LOGIN_ERROR, payload: msg}
 }
 
 const getUser = (username, isAdmin=false, data) => {
@@ -42,12 +50,22 @@ const logout = () => {
 const RegisternUser = (user) => {
   user.is_admin = false
   return async (dispatch) => {
-    let res = await axios.post(`${BASE_URL}/users/register`, user)
+    try {
+      let res = await axios.post(`${BASE_URL}/users/register`, user)
     dispatch(registeredUser(res.data))
+    } catch (error) {
+      dispatch(registerError(error.response.data.message))
+    }
+    
     
   }
   
 }
+
+const registerError = (user) => {
+  return {type: REGISTER_ERROR, payload: user}
+}
+
 const registeredUser = (user) => {
   return {type: REGISTER_USER, payload: user}
 }

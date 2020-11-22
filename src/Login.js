@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import Alert from './Alert';
 import {LoginUser, RegisternUser} from './Actions/user'
 import {Container} from '@bootstrap-styled/v4'
@@ -39,7 +39,7 @@ const StyledInnerDiv = styled.div`
 `
 const Button = styled.button`
   font-size: 1em;
-  margin: 1em;
+  margin: 1rem 0;
   padding: 0.25em 1em;
   border-radius: 3px;
 
@@ -52,6 +52,7 @@ function Login(){
 	const dispatch = useDispatch()
 	const history = useHistory();
 	const [ activeView, setActiveView ] = useState('login');
+	let apiError = useSelector(st => st.user.errors)
 	const [ loginInfo, setLoginInfo ] = useState({
 		username   : '',
 		password   : '',
@@ -93,7 +94,7 @@ function Login(){
 				email      : loginInfo.email || undefined
 			};
 			registerUser(data)
-			history.push('/languages')
+			apiError ? history.push('/') : history.push('/login')
 			
 		} else {
 			data = {
@@ -101,7 +102,7 @@ function Login(){
 				password : loginInfo.password
 			};
 			setLogin(data)
-			history.push('/languages')
+			apiError ? history.push('/') : history.push('/login')
 		}
 
 		
@@ -121,6 +122,7 @@ function Login(){
 	const signupFields = (
 		<div>
 			<StyledInnerDiv>
+			
 			<div className="form-group">
 				<label> First name </label>
 				<input
@@ -158,10 +160,12 @@ function Login(){
 			</StyledInnerDiv>
 		</div>
 	);
-
 	return (
 		<Container className="text-left">
 		<StyledDiv>
+		{apiError ? (
+			<Alert type="danger" messages={apiError} />
+				  ) : null}
 		<div className="Login">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 				<div className="">
@@ -201,7 +205,7 @@ function Login(){
 								{errors.password && <p>{errors.password.message}</p>}
 							</div>
 							{loginActive ? '' : signupFields}
-							<Button type="submit" className="btn btn-primary " onSubmit={handleSubmit(onSubmit)}>
+							<Button type="submit" className="btn btn-primary text-center " onSubmit={handleSubmit(onSubmit)}>
 								Submit
 							</Button>
 						</form>

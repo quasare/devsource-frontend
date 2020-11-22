@@ -52,6 +52,11 @@ const Button = styled.button`
   background: ${props => props.theme.main};
 `;
 
+const StyledLink = styled.a`
+text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
+`
+
 export default function Language() {
     let {name} = useParams()
     const dispatch = useDispatch();
@@ -60,11 +65,23 @@ export default function Language() {
     let admin = useSelector(st => st.user.isAdmin)
     let username = useSelector(st => st.user.user)
     let token = useSelector(st => st.user.token)
+    let userLike = useSelector(st => st.user.languages)
     let [isModal, setModal] = useState(false)
     
     let missing = !lang
     let missingVideo = !video
     let [like, setLike] = useState(false)
+    let isUser = userLike  ? userLike.filter(e => e.language_name == name) : false 
+    
+    let isLike = isUser.length >= 1
+
+    useEffect(()=> {
+      if(isLike){
+        setLike(() => like = true)
+      }else{
+        setLike(() => like = false)
+      }
+    },[isLike])
     
     useEffect(function() {
       if (missing) {
@@ -98,6 +115,7 @@ export default function Language() {
   
     function sendLike() {
       dispatch(sendLikeLanguage({
+        token: token,
         username: username.username,
         language_name: name
       }))
@@ -105,6 +123,7 @@ export default function Language() {
 
     function sendUnlike() {
         dispatch(sendUnlikeLanguage({
+          token: token,
           username: username.username,
           language_name: name
         }))
@@ -128,7 +147,7 @@ export default function Language() {
             <Container >
                 <StyledDiv className="text-center">
                     <h2>{lang.lang_name}  </h2>
-                    <p> <a  href={lang.docs}> View Docs</a>  
+                    <p> <StyledLink  href={lang.docs}> View Docs</StyledLink>  
                     <p>
                     {like ? <i class="fas fa-heart" onClick={handleUnlike}></i>: <i class="far fa-heart" onClick={handleLike}></i>} </p>
                     </p>

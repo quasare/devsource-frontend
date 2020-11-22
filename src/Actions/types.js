@@ -27,6 +27,8 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOGIN_USER = "LOGIN_USER";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const REGISTER_USER = "REGSITER_USER";
 export const LOAD_USER_VIDS = 'LOAD_USER_VIDS';

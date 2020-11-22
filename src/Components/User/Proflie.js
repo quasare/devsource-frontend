@@ -18,22 +18,14 @@ export default function Proflie() {
     let token = useSelector(st => st.user.token)
     let missingLikes = !likesResource
     
-    useEffect(function() {
-        if (missing) {
-          dispatch(getUser());
-
-        }
-        dispatch(getUser())
-      }, [missing, dispatch]);
-
     useEffect(() =>{
-      if(missingLikes && !missing){
+      if(!missingLikes ){
         dispatch(GetUserLikesLanguages(user.username, {token: token}))
         dispatch(GetUserLikesResources(user.username, {token: token}))
         dispatch(GetUserLikesVids(user.username, {token: token}))
       }
       
-    }, [missingLikes,missing,  dispatch])  
+    }, [missingLikes,  dispatch])  
 
 
       if (missing) return <h1 className="fas fa-circle-notch fa-spin"></h1>;

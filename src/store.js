@@ -20,6 +20,12 @@ const persistConfig = {
   whitelist: ['user']
 };
 
+const authPersistConfig = {
+  key: 'auth',
+  storage: storage,
+  blacklist: ['resources', 'languages']
+}
+
 const persistedReducer = persistReducer(persistConfig, root);
 
 // Store created with persit reducer

@@ -1,7 +1,7 @@
 import React, {useEffect}from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {getJoke, getQuote} from './Actions/apis';
-import JokeCard from './Components/Misc/JokeCard';
+import JokeCard from './Components/Misc/JokeCard'
 import Container from '@bootstrap-styled/v4/lib/Container';
 import styled from 'styled-components'
 

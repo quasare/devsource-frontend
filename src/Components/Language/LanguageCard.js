@@ -32,13 +32,18 @@ const StyledNavLink = styled(Link)`
   padding: 0rem 1rem;
 `
 
+const StyledLink = styled.a`
+text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
+`
+
 
 export default function LanguageCard({language}) {
     return (
         <StyledDiv >
         <Card className="text-center">
             <h3>{language.lang_name}</h3>
-            <p><a href={language.website}>Visit Site </a></p>
+            <p><StyledLink href={language.website}>Visit Site </StyledLink></p>
             <StyledNavLink to={`/languages/${language.lang_name}`}> View More </StyledNavLink>
         </Card>
         </StyledDiv>
