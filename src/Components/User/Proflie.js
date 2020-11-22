@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {getUser, GetUserLikesLanguages, GetUserLikesVids, GetUserLikesResources} from '../../Actions/user';
 import {Card, Container, Row, Col} from '@bootstrap-styled/v4'
 
-import LikesList from './LikesList'
+
+import LanguageList from './LanguageList'
+import ResourceList from './ResourceList'
+import UserDetail from './UserDetail'
 
 
 export default function Proflie() {
@@ -12,6 +15,7 @@ export default function Proflie() {
     let missing = !user
     let likesResource = useSelector(st => st.user.resources)
     let likedLanguage = useSelector(st => st.user.languages)
+    let token = useSelector(st => st.user.token)
     let missingLikes = !likesResource
     
     useEffect(function() {
@@ -23,30 +27,25 @@ export default function Proflie() {
       }, [missing, dispatch]);
 
     useEffect(() =>{
-      if(missingLikes){
-        dispatch(GetUserLikesLanguages(user.username))
-        dispatch(GetUserLikesResources(user.username))
-        dispatch(GetUserLikesVids(user.username))
+      if(missingLikes && !missing){
+        dispatch(GetUserLikesLanguages(user.username, {token: token}))
+        dispatch(GetUserLikesResources(user.username, {token: token}))
+        dispatch(GetUserLikesVids(user.username, {token: token}))
       }
-      dispatch(GetUserLikesLanguages(user.username))
-        dispatch(GetUserLikesResources(user.username))
-        dispatch(GetUserLikesVids(user.username))
-    }, [missingLikes, dispatch])  
+      
+    }, [missingLikes,missing,  dispatch])  
 
 
-      if (missing) return <h1 className="fas fa-circle-notch fa-spin">loading...</h1>;
+      if (missing) return <h1 className="fas fa-circle-notch fa-spin"></h1>;
     return (
       <Container>
-        <Card className="text-center">
-            <p>Profile: {user.username}</p>
-            <p>Name: {user.first_name} {user.last_name}  </p>
-            <p>Email: {user.email}</p>
-        </Card>
+        <Row className='text-center'>
+          <UserDetail user={user} />
+        </Row>
 
         <Row> 
-          <Col lg={4} md={2}><LikesList likes={likesResource} /> </Col>
-          <Col lg={4} md={2}> <LikesList likes={likedLanguage} /> </Col>
-          <Col lg={14} md={2}> </Col>
+          <Col lg={4} md={2}> <ResourceList likes={likesResource} /> </Col>
+          <Col lg={4} md={2}> <LanguageList likes={likedLanguage} /> </Col>
         </Row>
         
         </Container>  

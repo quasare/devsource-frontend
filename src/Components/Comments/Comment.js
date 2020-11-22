@@ -2,6 +2,17 @@ import React, {useEffect} from 'react'
 import styled from "styled-components";
 import {useSelector} from 'react-redux'
 
+const StyledDiv = styled.div` 
+    background-color:${props => props.theme.main};
+    border: ${props => props.theme.primary};
+    color: ${props => props.theme.txt_secondary};
+    width:100%;
+    height:100%;
+    border-radius: .5rem;
+    justify-content: center;
+    text-align: center;
+    margin-top: .5rem;
+`
 
 export default function Comment({comment, deleteComment}) {
 
@@ -11,7 +22,7 @@ export default function Comment({comment, deleteComment}) {
         deleteComment(comment.id);
       }
     return (
-        <div>
+        <StyledDiv>
             <h3>{comment.username}</h3>
             <p>{deleteComment && canDelete && (
                 <i
@@ -21,6 +32,6 @@ export default function Comment({comment, deleteComment}) {
               )}
               
             {comment.comment_text}</p>
-        </div>
+        </StyledDiv>
     )
 }

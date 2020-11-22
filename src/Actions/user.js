@@ -20,9 +20,10 @@ const loginUser = (user) => {
   return {type: LOGIN_USER, payload: user}
 }
 
-const getUser = (username, isAdmin=false) => {
+const getUser = (username, isAdmin=false, data) => {
+
   return async function (dispatch) {
-    const res = await axios.get(`${BASE_URL}/users/${username}`);
+    const res = await axios.get(`${BASE_URL}/users/${username}`, {params: {token: data}});
     res.data.isAdmin =isAdmin
     dispatch(gotUser(res.data));
   };
@@ -39,7 +40,7 @@ const logout = () => {
 
 
 const RegisternUser = (user) => {
-  
+  user.is_admin = false
   return async (dispatch) => {
     let res = await axios.post(`${BASE_URL}/users/register`, user)
     dispatch(registeredUser(res.data))
@@ -51,9 +52,9 @@ const registeredUser = (user) => {
   return {type: REGISTER_USER, payload: user}
 }
 
-export const GetUserLikesVids = (user) => {
+export const GetUserLikesVids = (user, data) => {
   return async (dispatch) => {
-    let res = await axios.get(`${BASE_URL}/users/${user}/videos`)
+    let res = await axios.get(`${BASE_URL}/users/${user}/videos`, {params: data})
     dispatch(gotUserVids(res.data))
   }
 }
@@ -61,9 +62,9 @@ export const GetUserLikesVids = (user) => {
 const gotUserVids = (vids) => {
   return {type: LOAD_USER_VIDS, payload: vids}
 }
-export const GetUserLikesLanguages = (user) => {
+export const GetUserLikesLanguages = (user, data) => {
   return async (dispatch) => {
-    let res = await axios.get(`${BASE_URL}/users/${user}/languages`)
+    let res = await axios.get(`${BASE_URL}/users/${user}/languages`, {params: data})
     dispatch(gotUSerLanguages(res.data))
   }
 }
@@ -71,9 +72,9 @@ export const GetUserLikesLanguages = (user) => {
 const gotUSerLanguages = (language) => {
   return {type: LOAD_USER_LANGUAGES, payload: language}
 }
-export const GetUserLikesResources = (user) => {
+export const GetUserLikesResources = (user, data) => {
   return async (dispatch) => {
-    let res = await axios.get(`${BASE_URL}/users/${user}/resources`)
+    let res = await axios.get(`${BASE_URL}/users/${user}/resources`, {params: data})
     dispatch(gotUserResources(res.data))
   }
 }

@@ -23,16 +23,17 @@ export default function Resource() {
     const history = useHistory()
     let resource = useSelector(st => st.resource.resource)
     let username = useSelector(st => st.user.user)
+    let token = useSelector(st => st.user.token)
     
     let missing = !resource
 
 
     useEffect(function() {
       if (missing) {
-        dispatch(getResource(id));
+        dispatch(getResource(id, {token: token}));
       }
-      dispatch(getResource(id));
-    }, [missing,id, dispatch]);
+      dispatch(getResource(id, {token: token}));
+    }, [missing,id, token, dispatch]);
 
     function toggleEdit() {
       setIsEditing(edit => !edit);

@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import styled from "styled-components";
 import {useSelector} from 'react-redux'
 import {
-    A,
     Button,
     Navbar,
     Container,
@@ -11,18 +10,24 @@ import {
     NavbarToggler,
     Collapse,
     Nav,
-    NavItem,
-    NavLink
+    NavItem
   } from '@bootstrap-styled/v4';
 
 
 const MainNavbar = styled(Navbar)`
   background-color: ${props => props.theme.main};
-  color: white;
-  box-shadow: 0px 3px 4px 1px rgba(143,158,164,0.34);
+  margin-bottom: 2rem;
 `
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(Link)`
   text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
+
+  &:hover {
+    color: ${props => props.theme.secondary};
+    background: ${props => props.theme.main};
+
+  }
+  padding: 0rem 1rem;
 `
 
 export default function Navigation({logout}) {
@@ -37,12 +42,12 @@ export default function Navigation({logout}) {
         <Container>
         <Collapse navbar isOpen={true} >
           <Nav navbar className="mr-auto">
-            <NavItem>
-            <StyledNavLink><Link to="/">Home</Link></StyledNavLink>
-            </NavItem>
-            <NavItem>
-            <StyledNavLink><Link to="/login">Log in / Sign Up</Link></StyledNavLink>
-            </NavItem>
+          
+          <StyledNavLink to="/">Home</StyledNavLink>
+            
+          
+          <StyledNavLink to="/login">Log in / Sign Up</StyledNavLink>
+            
               </Nav>
           </Collapse>
             </Container>
@@ -55,18 +60,10 @@ export default function Navigation({logout}) {
         <Container>
         <Collapse navbar isOpen={true} >
           <Nav navbar className="mr-auto">
-            <NavItem>
-            <StyledNavLink><Link to="/">Home</Link></StyledNavLink>
-            </NavItem>
-            <NavItem>
-            <StyledNavLink><Link to="/profile">Profile</Link></StyledNavLink>
-            </NavItem>
-            <NavItem>
-            <StyledNavLink><Link to="/languages">Languages</Link></StyledNavLink>
-            </NavItem>
-            <NavItem>
-            <StyledNavLink><Link  to="/" onClick={logout}> Log out</Link></StyledNavLink>
-            </NavItem>
+          <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to="/profile">Profile</StyledNavLink>
+          <StyledNavLink to="/languages">Languages</StyledNavLink>
+          <StyledNavLink  to="/" onClick={logout}> Log out</StyledNavLink>
               </Nav>
           </Collapse>
             </Container>

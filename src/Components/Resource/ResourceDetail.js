@@ -3,12 +3,34 @@ import { useSelector, useDispatch } from "react-redux";
 import {getVid} from '../../Actions/apis';
 import VideoList from '../Vids/VideoList';
 import {sendLikeResource, sendUnlikeResource} from '../../Actions/resources';
-import {Container,  Button,
+import {Container,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter} from '@bootstrap-styled/v4'
+import styled from 'styled-components';
+  
 
+  const StyledDiv = styled.div` 
+  background-color:${props => props.theme.main};
+  border: ${props => props.theme.primary};
+  color: ${props => props.theme.txt_secondary};
+  width:100%;
+  height:100%;
+  border-radius: .5rem;
+  justify-content: center;
+  text-align: center;
+`  
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  /* Color the border and text with theme.main */
+  color: ${props => props.theme.txt_secondary};
+  background: ${props => props.theme.main};
+`;
 
 export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
     const dispatch = useDispatch();
@@ -18,10 +40,23 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
     let isAdmin = useSelector(st => st.user.isAdmin)
     let username = useSelector(st => st.user.user.username)
     let [isModal, setModal] = useState(false)
+    let userLike = useSelector(st => st.user.resources)
+    let token = useSelector(st => st.user.token)
 
 
     let [like, setLike] = useState(false)
+    let isUser = userLike  ? userLike.filter(e => e.resource_name == resource_name) : false 
+    
+    let isLike = isUser.length >= 1
 
+    useEffect(()=> {
+      if(isLike){
+        setLike(() => like = true)
+      }else{
+        setLike(() => like = false)
+      }
+    },[isLike])
+    
 
     useEffect(function(){
       
@@ -38,6 +73,7 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
       
       function sendLike() {
         dispatch(sendLikeResource({
+          token: token,
           username: username,
           resource_id: resource.id,
           rating: 0
@@ -46,6 +82,7 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
 
       function sendUnlike() {
           dispatch(sendUnlikeResource({
+            token: token,
             username: username,
             resource_id: resource.id
           }))
@@ -64,10 +101,10 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
     const handleClose = () => setModal(() => !isModal)
     
     return (
-        <div className="text-center">
+        <StyledDiv className="text-center">
 
         <h3>{resource_name}</h3>
-            <p>{website}</p>
+            <p> <a herf={website}>View Site</a>  </p>
             <p>{detail}</p>
             <p>{like ? <i class="fas fa-heart" onClick={handleUnlike}></i>: <i class="far fa-heart" onClick={handleLike}></i>} </p>
 
@@ -91,7 +128,7 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
                   </ModalFooter>
                 </Modal>
             </div> 
-        </div>
+        </StyledDiv>
     )
 }
 

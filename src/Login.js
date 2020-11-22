@@ -4,6 +4,49 @@ import {useDispatch} from 'react-redux'
 import Alert from './Alert';
 import {LoginUser, RegisternUser} from './Actions/user'
 import {Container} from '@bootstrap-styled/v4'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import styled from 'styled-components'
+
+
+const LoginSchema = yup.object().shape({
+	username: yup.string().required(),
+	password: yup.string().required().min(6),
+	first_name: yup.string(),
+	last_name: yup.string(),
+	email: yup.string().email()
+  });
+
+const StyledDiv = styled.div` 
+    background-color:${props => props.theme.main};
+    border: ${props => props.theme.primary};
+    color: ${props => props.theme.txt_secondary};
+    width: 33%;
+    height:100%;
+    border-radius: .5rem;
+    justify-content: center;
+	text-align: right;
+	 padding-right: 8rem;
+`
+
+const StyledInnerDiv = styled.div` 
+    background-color:${props => props.theme.main};
+    border: ${props => props.theme.primary};
+    color: ${props => props.theme.txt_secondary};
+    height:100%;
+
+`
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  /* Color the border and text with theme.main */
+  color: ${props => props.theme.txt_secondary};
+  background: ${props => props.theme.bg};
+`;
 
 function Login(){
 	const dispatch = useDispatch()
@@ -15,8 +58,10 @@ function Login(){
 		first_name : '',
 		last_name  : '',
 		email      : '',
-		errors     : []
 	});
+	const { register, handleSubmit, errors } = useForm({
+		resolver: yupResolver(LoginSchema)
+	  });
 
 	function setLoginView(){
 		setActiveView('login');
@@ -30,11 +75,11 @@ function Login(){
 		dispatch(LoginUser(data))
 	}
 
-	function register(data){
+	function registerUser(data){
 		dispatch(RegisternUser(data))
 	}
-	function handleSubmit(evt){
-		evt.preventDefault();
+	function onSubmit(evt){
+		
 
 		let data;
 
@@ -47,7 +92,7 @@ function Login(){
 				last_name  : loginInfo.last_name || undefined,
 				email      : loginInfo.email || undefined
 			};
-			register(data)
+			registerUser(data)
 			history.push('/languages')
 			
 		} else {
@@ -74,84 +119,97 @@ function Login(){
 	let loginActive = activeView === 'login';
 
 	const signupFields = (
-		<Container>
+		<div>
+			<StyledInnerDiv>
 			<div className="form-group">
-				<label> First name </label>{' '}
+				<label> First name </label>
 				<input
 					name="first_name"
 					className="form-control"
 					value={loginInfo.first_name}
 					onChange={handleChange}
-				/>{' '}
-			</div>{' '}
+					ref={register}
+				/>
+				{errors.first_name && <p>{errors.first_name.message}</p>}
+			</div>
 			<div className="form-group">
-				<label> Last name </label>{' '}
+				<label> Last name </label>
 				<input
 					name="last_name"
 					className="form-control"
 					value={loginInfo.last_name}
 					onChange={handleChange}
-				/>{' '}
-			</div>{' '}
+					ref={register}
+				/>
+				{errors.last_name && <p>{errors.last_name.message}</p>}
+			</div>
 			<div className="form-group">
-				<label> Email </label>{' '}
+				<label> Email </label>
 				<input
 					type="email"
 					name="email"
 					className="form-control"
 					value={loginInfo.email}
 					onChange={handleChange}
-				/>{' '}
-			</div>{' '}
-		</Container>
+					ref={register}
+				/>
+				{errors.email && <p>{errors.email.message}</p>}
+			</div>
+			</StyledInnerDiv>
+		</div>
 	);
 
 	return (
-		<Container className="text-center">
+		<Container className="text-left">
+		<StyledDiv>
 		<div className="Login">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-				<div className="d-flex ">
+				<div className="">
 					<div className="btn-group">
-						<button className={`btn btn-primary ${loginActive ? 'active' : ''} `} onClick={setLoginView}>
-							Login{' '}
-						</button>{' '}
-						<button className={`btn btn-primary ${loginActive ? '' : 'active'} `} onClick={setSignupView}>
-							Sign up{' '}
-						</button>{' '}
-					</div>{' '}
-				</div>{' '}
+						<Button className={`btn btn-primary ${loginActive ? 'active' : ''} `} onClick={setLoginView}>
+							Login
+						</Button>
+						<Button className={`btn btn-primary ${loginActive ? '' : 'active'} `} onClick={setSignupView}>
+							Sign up
+						</Button>
+					</div>
+				</div>
 				<div className="card">
-					<div className="card-body">
-						<form onSubmit={handleSubmit}>
+					<div className="card-body p-0">
+						<form onSubmit={handleSubmit(onSubmit)}>
 							<div className="form-group">
-								<label> Username </label>{' '}
+								<label> Username </label>
 								<input
 									name="username"
 									className="form-control"
 									value={loginInfo.username}
 									onChange={handleChange}
-								/>{' '}
-							</div>{' '}
+									ref={register}
+								/>
+								{errors.username && <p>{errors.username.message}</p>}
+							</div>
 							<div className="form-group">
-								<label> Password </label>{' '}
+								<label> Password </label>
 								<input
 									type="password"
 									name="password"
 									className="form-control"
 									value={loginInfo.password}
 									onChange={handleChange}
-								/>{' '}
-							</div>{' '}
-							{loginActive ? '' : signupFields}{' '}
-							{loginInfo.errors.length ? <Alert type="danger" messages={loginInfo.errors} /> : null}
-							<button type="submit" className="btn btn-primary " onSubmit={handleSubmit}>
-								Submit{' '}
-							</button>{' '}
-						</form>{' '}
-					</div>{' '}
-				</div>{' '}
-			</div>{' '}
+									ref={register}
+								/>
+								{errors.password && <p>{errors.password.message}</p>}
+							</div>
+							{loginActive ? '' : signupFields}
+							<Button type="submit" className="btn btn-primary " onSubmit={handleSubmit(onSubmit)}>
+								Submit
+							</Button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+		</StyledDiv>
 		</Container>
 	);
 }

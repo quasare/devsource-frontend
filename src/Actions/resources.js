@@ -5,9 +5,9 @@ import axios from 'axios';
 const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 
 
-const getResource = (id) => {
+const getResource = (id, data) => {
   return async function (dispatch) {
-    const res = await axios.get(`${BASE_URL}/resources/detail/${id}`);
+    const res = await axios.get(`${BASE_URL}/resources/detail/${id}`, {params: data});
     dispatch(gotResource(res.data));
   };
 }
@@ -17,10 +17,10 @@ function gotResource(resource) {
   return { type: LOAD_RESOURCE, payload: resource };
 }
 
-const getResources = (lang) => {
+const getResources = (lang, data) => {
   return async function (dispatch) {
    
-    const res = await axios.get(`${BASE_URL}/resources/${lang}`);
+    const res = await axios.get(`${BASE_URL}/resources/${lang}`, {params: data});
     dispatch(gotResources(res.data));
   };
 }
@@ -96,8 +96,8 @@ function likeResource(data){
 
 export function sendUnlikeResource(data) {
   return async function(dispatch) {
-    let res = await axios.delete(`${BASE_URL}/likes/resource`, data )
-    return dispatch(unlikeResource())
+    let res = await axios.delete(`${BASE_URL}/likes/resource`, {params: data} )
+    return dispatch(unlikeResource(res.data))
   }
 }
 

@@ -3,26 +3,28 @@ import { useSelector, useDispatch } from "react-redux";
 import LanguageCard from './LanguageCard'
 import {getLanguages} from '../../Actions/languages'
 import language from '../../Reducers/languages';
+import {Container} from '@bootstrap-styled/v4'
 
 
 
 export default function LanguageList() {
     const languages = useSelector(st => st.languages.lang)
+    let token = useSelector(st => st.user.token)
     const dispatch = useDispatch()
     const missing = !languages
     useEffect(function() {
         if (missing) {
-          dispatch(getLanguages());
+          dispatch(getLanguages({token: token}));
         }
-      }, [missing, dispatch]);
+      }, [missing, token, dispatch]);
       
-      if (missing) return <h1 className="mt-5">loading...</h1>;
+      if (missing) return <Container><h1 className="mt-5 text-center"><i class="fas fa-circle-notch fa-spin"></i></h1></Container> ;
     return (
-        <div>
+        <Container>
         <ul>
         {languages.map((l) => (<LanguageCard language={l} />
             ))}</ul>
-        </div>
+        </Container>
     )
 }
 

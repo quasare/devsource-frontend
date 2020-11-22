@@ -10,18 +10,47 @@ import ResourceList from '../Resource/ResourceList';
 import CommentList from '../Comments/CommentList';
 import CommentForm from '../Comments/CommentForm';
 import VideoList from '../Vids/VideoList'
-import {Container,  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter} from '@bootstrap-styled/v4'
-
+import Container from '@bootstrap-styled/v4/lib/Container'
+import Modal from '@bootstrap-styled/v4/lib/Modal'
+import  ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter'
+import  ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader'
 
 const Card = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 `
 
+const StyledDiv = styled.div` 
+    background-color:${props => props.theme.main};
+    border: ${props => props.theme.primary};
+    color: ${props => props.theme.txt_secondary};
+    width:100%;
+    height:100%;
+    border-radius: .5rem;
+    justify-content: center;
+    text-align: center;
+`
+const StyledNavLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
+
+  &:hover {
+    color: ${props => props.theme.secondary};
+    background: ${props => props.theme.main};
+
+  }
+  padding: 0rem 1rem;
+`
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  /* Color the border and text with theme.main */
+  color: ${props => props.theme.txt_secondary};
+  background: ${props => props.theme.main};
+`;
 
 export default function Language() {
     let {name} = useParams()
@@ -30,6 +59,7 @@ export default function Language() {
     let video = useSelector(st => st.externalApi.vids)
     let admin = useSelector(st => st.user.isAdmin)
     let username = useSelector(st => st.user.user)
+    let token = useSelector(st => st.user.token)
     let [isModal, setModal] = useState(false)
     
     let missing = !lang
@@ -38,10 +68,10 @@ export default function Language() {
     
     useEffect(function() {
       if (missing) {
-        dispatch(getLanguage(name));
+        dispatch(getLanguage(name, {token: token}));
       }
-      dispatch(getLanguage(name));
-    }, [missing,name, dispatch]);
+      dispatch(getLanguage(name, {token: token}));
+    }, [missing, name, token, dispatch]);
 
     useEffect(function(){
       if(missingVideo){
@@ -50,7 +80,7 @@ export default function Language() {
       dispatch(getVid(name))
     }, [missingVideo, name, dispatch])
 
-    if (missing) return <h1 className="mt-5 text-center"><i class="fas fa-circle-notch fa-spin"></i></h1>;
+    if (missing) return <Container><h1 className="mt-5 text-center"><i class="fas fa-circle-notch fa-spin"></i></h1></Container>;
 
 
     function addComment(text) {
@@ -92,34 +122,36 @@ export default function Language() {
 
     const handleClose = () => setModal(() => !isModal)
 
+
     return (
         <div>
             <Container >
-                <Card className="text-center">
+                <StyledDiv className="text-center">
                     <h2>{lang.lang_name}  </h2>
-                    <p>{lang.docs}  
+                    <p> <a  href={lang.docs}> View Docs</a>  
+                    <p>
                     {like ? <i class="fas fa-heart" onClick={handleUnlike}></i>: <i class="far fa-heart" onClick={handleLike}></i>} </p>
-                    
-                  {admin && <Link to={`/add-resource/${name}`}>add resource  
+                    </p>
+                  {admin && <StyledNavLink to={`/add-resource/${name}`}>add resource  
                   
-                  </Link> }  
+                  </StyledNavLink> }  
                  
-                </Card>
-                <div>
+                </StyledDiv>
+                
                 <Button color="primary" onClick={() => handleClose()}>Videos</Button>
                 <Modal isOpen={isModal} toggle={() => handleClose()}>
                   <ModalHeader>Videos</ModalHeader>
                   <VideoList video={video} />
                   <ModalFooter>
-                    <Button color="secondary" onClick={() => handleClose()}>Cancel</Button>
+                    <Button color="secondary" onClick={() => handleClose()}>Close</Button>
                   </ModalFooter>
                 </Modal>
-              </div>               
-              
-                <ResourceList name={name} />
+                           
+              <ResourceList name={name} />
                
-                <CommentForm submitCommentForm={addComment} username={username.username} post_id={lang.lang_name}/>
-                <CommentList name={name} deleteComment={deleteComment} />
+              <CommentForm submitCommentForm={addComment} username={username.username} post_id={lang.lang_name}/>
+              <CommentList name={name} deleteComment={deleteComment} />
+              
             </Container>
         </div>
     )

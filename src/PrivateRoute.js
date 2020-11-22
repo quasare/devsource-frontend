@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 function PrivateRoute({ exact, path, children }) {
   let user = useSelector(st => st.user.token)
   if (!user) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   return (

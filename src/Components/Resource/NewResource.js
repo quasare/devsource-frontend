@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ResourceForm from './ResourceForm';
 import {sendResourceToAPI} from '../../Actions/resources'
-
+import {Container} from '@bootstrap-styled/v4'
 export default function NewResource() {
 
     const dispatch = useDispatch();
@@ -20,9 +20,9 @@ export default function NewResource() {
       };  
 
     return (
-        <div>
+        <Container>
          <h1>New Resource</h1>
             <ResourceForm save={add} cancel={cancel} />
-        </div>
+        </Container>
     )
 }

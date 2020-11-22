@@ -1,20 +1,22 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './Navigation'
 import Routes from './Routes'
 import {useSelector, useDispatch} from 'react-redux'
 import {getUser, logout} from './Actions/user'
 import { decode } from "jsonwebtoken";
-import BootstrapProvider from '@bootstrap-styled/provider';
 import Navigation from './Navigation';
-import {Container} from '@bootstrap-styled/v4'
+
+import {ThemeProvider} from 'styled-components'
+
+
 
 const theme = {
-  main: '#2C2D3080',
+  main: '#282c34cc',
   txt: '#8F9EA4',
+  txt_secondary: '#F2EFF3',
   secondary: '#8D8095',
-  bg: '#F2EFF3'
+  bg: '#F2EFF380',
 };
 
 function App() {
@@ -22,10 +24,10 @@ function App() {
   const dispatch = useDispatch()
   let token = useSelector(st => st.user.token)
   useEffect(() => {
-    
       try {
         let { username, is_admin } = decode(token);
-        dispatch(getUser(username, is_admin));
+        console.log(username);
+        dispatch(getUser(username, is_admin, token));
       } catch (err) {
         console.log(err);
       }
@@ -38,12 +40,11 @@ function App() {
   return (
     <div >
     <BrowserRouter>
-    <BootstrapProvider theme ={theme}>
-      
+    
+      <ThemeProvider theme={theme} >
       <Navigation logout={hanldeLogOut}/>
       <Routes/>
-      
-      </BootstrapProvider>
+      </ThemeProvider>
     </BrowserRouter>
     
     </div>

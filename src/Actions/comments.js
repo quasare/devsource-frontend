@@ -5,14 +5,14 @@ import axios from 'axios';
 const BASE_URL = process.env.BASE_URL || "http://localhost:3001/comments";
 
 
-const getComments = (lang) => {
+const getComments = (lang, data) => {
     let isnum = /^\d+$/.test(lang);
     return async function (dispatch) {
       if(isnum){
-        const res = await axios.get(`${BASE_URL}/resource/${lang}`);
+        const res = await axios.get(`${BASE_URL}/resource/${lang}`, {params: data});
        dispatch(gotComment(res.data));
       }else{
-        const res = await axios.get(`${BASE_URL}/language/${lang}`);
+        const res = await axios.get(`${BASE_URL}/language/${lang}`, {params: data});
         dispatch(gotComment(res.data));
       }
       

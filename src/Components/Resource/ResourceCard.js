@@ -3,23 +3,38 @@ import styled from "styled-components";
 import {Link} from 'react-router-dom';
 
 
-const Card = styled.div`
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
+const StyledDiv = styled.div` 
+    background-color:${props => props.theme.main};
+    border: ${props => props.theme.primary};
+    color: ${props => props.theme.txt_secondary};
+    width:100%;
+    height:100%;
+    border-radius: .5rem;
+    justify-content: center;
+    text-align: center;
 `
+const StyledNavLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.theme.txt_secondary};
 
-const Container = styled.div``
+  &:hover {
+    color: ${props => props.theme.secondary};
+    background: ${props => props.theme.main};
+
+  }
+  padding: 0rem 1rem;
+`
 
 export default function ResourceCard({resource}) {
     return (
 
         <div>
-        <Card className="text-center">
+        <StyledDiv className="text-center">
             <h3>{resource.resource_name}</h3>
-            <p>{resource.website}</p>
+            <p> <a href={resource.website} > View Site </a> </p>
             <p>{resource.detail}</p>
-            <Link to={`/languages/${resource.lang}/resource/${resource.id}`}> Detail  </Link>
-        </Card>
+            <StyledNavLink to={`/languages/${resource.lang}/resource/${resource.id}`}> Detail  </StyledNavLink>
+        </StyledDiv>
         </div>
     )
 }

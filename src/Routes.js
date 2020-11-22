@@ -15,18 +15,18 @@ export default function Routes() {
             <Route exact path='/'>
                 <Home/>
             </Route>
-            <Route exact path='/languages'>
+            <PrivateRoute exact path='/languages'>
                 <LanugageList/>
-            </Route>
-            <Route exact path='/languages/:name'>
+            </PrivateRoute>
+            <PrivateRoute exact path='/languages/:name'>
                 <Language/>
-            </Route>
-            <Route exact path='/languages/:name/resource/:id'>
+            </PrivateRoute>
+            <PrivateRoute exact path='/languages/:name/resource/:id'>
                 <Resource />
-            </Route>
-            <Route exact path='/add-resource/:lang'>
+            </PrivateRoute>
+            <PrivateRoute exact path='/add-resource/:lang'>
                 <NewResource />
-            </Route>
+            </PrivateRoute>
             
             <PrivateRoute exact path='/profile'>
                 <Profile />
