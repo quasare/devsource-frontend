@@ -94,7 +94,7 @@ function Login(){
 				email      : loginInfo.email || undefined
 			};
 			registerUser(data)
-			apiError ? history.push('/') : history.push('/login')
+			apiError ? history.push('/login') : history.push('/') 
 			
 		} else {
 			data = {
@@ -102,7 +102,7 @@ function Login(){
 				password : loginInfo.password
 			};
 			setLogin(data)
-			apiError ? history.push('/') : history.push('/login')
+			apiError ? history.push('/login') : history.push('/') 
 		}
 
 		

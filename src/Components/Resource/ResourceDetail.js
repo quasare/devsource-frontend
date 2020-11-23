@@ -9,7 +9,7 @@ import {Container,
   ModalBody,
   ModalFooter} from '@bootstrap-styled/v4'
 import styled from 'styled-components';
-  
+import BootstrapProvider from '@bootstrap-styled/provider';  
 
   const StyledDiv = styled.div` 
   background-color:${props => props.theme.main};
@@ -120,6 +120,7 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
           </div>
           <div>
                 <Button color="primary" onClick={() => handleClose()}>Videos</Button>
+                <BootstrapProvider>
                 <Modal isOpen={isModal} toggle={() => handleClose()}>
                   <ModalHeader>Videos</ModalHeader>
                   <VideoList video={video} />
@@ -127,6 +128,7 @@ export default function ResourceDetail({toggleEdit, deleteResource, resource}) {
                     <Button color="secondary" onClick={() => handleClose()}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
+                </BootstrapProvider>
             </div> 
         </StyledDiv>
     )

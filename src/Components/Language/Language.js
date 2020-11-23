@@ -14,6 +14,7 @@ import Container from '@bootstrap-styled/v4/lib/Container'
 import Modal from '@bootstrap-styled/v4/lib/Modal'
 import  ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter'
 import  ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader'
+import BootstrapProvider from '@bootstrap-styled/provider';
 
 const Card = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -139,8 +140,9 @@ export default function Language() {
       toggleLike(e)
     }
 
-    const handleClose = () => setModal(() => !isModal)
+    const handleClose = () => setModal((isModal) => !isModal)
 
+    console.log(isModal);
 
     return (
         <div>
@@ -158,14 +160,15 @@ export default function Language() {
                 </StyledDiv>
                 
                 <Button color="primary" onClick={() => handleClose()}>Videos</Button>
+                <BootstrapProvider >
                 <Modal isOpen={isModal} toggle={() => handleClose()}>
-                  <ModalHeader>Videos</ModalHeader>
+                  <ModalHeader toggle={() => handleClose()}   >Videos</ModalHeader>
                   <VideoList video={video} />
                   <ModalFooter>
                     <Button color="secondary" onClick={() => handleClose()}>Close</Button>
-                  </ModalFooter>
+                    </ModalFooter>
                 </Modal>
-                           
+                </BootstrapProvider>           
               <ResourceList name={name} />
                
               <CommentForm submitCommentForm={addComment} username={username.username} post_id={lang.lang_name}/>
