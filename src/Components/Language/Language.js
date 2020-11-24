@@ -9,11 +9,11 @@ import {getVid} from '../../Actions/apis'
 import ResourceList from '../Resource/ResourceList';
 import CommentList from '../Comments/CommentList';
 import CommentForm from '../Comments/CommentForm';
-import VideoList from '../Vids/VideoList'
-import Container from '@bootstrap-styled/v4/lib/Container'
-import Modal from '@bootstrap-styled/v4/lib/Modal'
-import  ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter'
-import  ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader'
+import VideoList from '../Vids/VideoList';
+import Container from '@bootstrap-styled/v4/lib/Container';
+import Modal from '@bootstrap-styled/v4/lib/Modal';
+import  ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter';
+import  ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader';
 import BootstrapProvider from '@bootstrap-styled/provider';
 
 const Card = styled.div`
