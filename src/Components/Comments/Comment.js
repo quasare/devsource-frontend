@@ -1,18 +1,8 @@
 import React, {useEffect} from 'react'
-import styled from "styled-components";
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+import {StyledDiv} from '../Misc/StyleResource'
 
-const StyledDiv = styled.div` 
-    background-color:${props => props.theme.main};
-    border: ${props => props.theme.primary};
-    color: ${props => props.theme.txt_secondary};
-    width:100%;
-    height:100%;
-    border-radius: .5rem;
-    justify-content: center;
-    text-align: center;
-    margin-top: .5rem;
-`
+
 
 export default function Comment({comment, deleteComment}) {
 

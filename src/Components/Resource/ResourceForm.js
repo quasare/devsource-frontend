@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-
+import {StyledDiv, Button} from '../Misc/StyleResource'
 
 
 
@@ -17,28 +17,6 @@ const ResourceSchema = yup.object().shape({
   });
 
  
-
-const StyledDiv = styled.div` 
-background-color:${props => props.theme.main};
-border: ${props => props.theme.primary};
-color: ${props => props.theme.txt_secondary};
-width:100%;
-height:100%;
-border-radius: .5rem;
-justify-content: center;
-text-align: center;
-`  
-const Button = styled.button`
-font-size: 1em;
-margin: 1em;
-padding: 0.25em 1em;
-border-radius: 3px;
-
-/* Color the border and text with theme.main */
-color: ${props => props.theme.txt_secondary};
-background: ${props => props.theme.main};
-`;
-
 function ResourceForm({resource, save, cancel}) {
   const { register, handleSubmit, errors } = useForm({
 		resolver: yupResolver(ResourceSchema)

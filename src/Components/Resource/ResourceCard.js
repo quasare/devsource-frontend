@@ -1,18 +1,8 @@
 import React from 'react'
 import styled from "styled-components";
 import {Link} from 'react-router-dom';
+import {StyledDiv, StyledLink} from '../Misc/StyleResource'
 
-
-const StyledDiv = styled.div` 
-    background-color:${props => props.theme.main};
-    border: ${props => props.theme.primary};
-    color: ${props => props.theme.txt_secondary};
-    width:100%;
-    height:100%;
-    border-radius: .5rem;
-    justify-content: center;
-    text-align: center;
-`
 const StyledNavLink = styled(Link)`
   text-decoration: none;
   color: ${props => props.theme.txt_secondary};
@@ -24,10 +14,7 @@ const StyledNavLink = styled(Link)`
   }
   padding: 0rem 1rem;
 `
-const StyledLink = styled.a`
-text-decoration: none;
-  color: ${props => props.theme.txt_secondary};
-`
+
 
 export default function ResourceCard({resource}) {
     return (

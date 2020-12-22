@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {StyledArea, Button, CommentFormDiv} from '../Misc/StyleResource'
 
 /** Comment form
  *
@@ -14,35 +15,6 @@ import * as yup from "yup";
 const Commentchema = yup.object().shape({
 	text: yup.string().required()
   });
-
-const StyledDiv = styled.div` 
-    border: ${props => props.theme.primary};
-    color: ${props => props.theme.txt_secondary};
-    width:100%;
-    height:100%;
-    border-radius: .5rem;
-    justify-content: center;
-    text-align: left;
-    margin-top: 2rem
-`
-
-const StyledArea = styled.textarea`
-  width: 50rem;
-  border: 4px solid rgba(0,0,0,0.1);
-  outline: none;
-  resize: none;
-  resize: none;
-`
-const Button = styled.button`
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-
-  /* Color the border and text with theme.main */
-  color: ${props => props.theme.txt_secondary};
-  background: ${props => props.theme.main};
-`;
 
 
 function CommentForm({submitCommentForm, username, post_id
@@ -76,7 +48,7 @@ function CommentForm({submitCommentForm, username, post_id
   }
 
   return (
-    <StyledDiv>
+    <CommentFormDiv>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
         <StyledArea onChange={handleChange}
@@ -96,7 +68,7 @@ function CommentForm({submitCommentForm, username, post_id
 
       </form>
 
-    </StyledDiv>
+    </CommentFormDiv>
   );
 }
 

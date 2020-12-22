@@ -12,25 +12,12 @@ import CommentForm from '../Comments/CommentForm';
 import VideoList from '../Vids/VideoList';
 import Container from '@bootstrap-styled/v4/lib/Container';
 import Modal from '@bootstrap-styled/v4/lib/Modal';
-import  ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter';
-import  ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader';
+import ModalFooter from '@bootstrap-styled/v4/lib/Modal/ModalFooter';
+import ModalHeader from '@bootstrap-styled/v4/lib/Modal/ModalHeader';
 import BootstrapProvider from '@bootstrap-styled/provider';
+import {StyledDiv, Button, StyledLink} from '../Misc/StyleResource'
 
-const Card = styled.div`
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-`
 
-const StyledDiv = styled.div` 
-    background-color:${props => props.theme.main};
-    border: ${props => props.theme.primary};
-    color: ${props => props.theme.txt_secondary};
-    width:100%;
-    height:100%;
-    border-radius: .5rem;
-    justify-content: center;
-    text-align: center;
-`
 const StyledNavLink = styled(Link)`
   text-decoration: none;
   color: ${props => props.theme.txt_secondary};
@@ -42,21 +29,7 @@ const StyledNavLink = styled(Link)`
   }
   padding: 0rem 1rem;
 `
-const Button = styled.button`
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
 
-  /* Color the border and text with theme.main */
-  color: ${props => props.theme.txt_secondary};
-  background: ${props => props.theme.main};
-`;
-
-const StyledLink = styled.a`
-text-decoration: none;
-  color: ${props => props.theme.txt_secondary};
-`
 
 export default function Language() {
     let {name} = useParams()
