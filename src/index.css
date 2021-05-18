@@ -3,7 +3,7 @@
 
 
 body {
-  background: url('../../frontend/src/Img/bg.png') no-repeat center center fixed;
+  background: url('./Img/bg.png') no-repeat center center fixed;
   /* Full height */
   height: 100%;
 
